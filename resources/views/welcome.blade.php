@@ -7,9 +7,6 @@
             <section class="first_block">
                 <div class="bg_image">
                     <div class="fill"></div>
-                    <a href="/user/login" class="button" target="_blank" style="background-color:#FE566B;padding: 0.5em 0.5em;  -webkit-box-shadow: 0px 4px 0 #CE4658;box-shadow: 0px 4px 0 #CE4658;margin-top: 1.7rem;">
-                        Личный кабинет
-                    </a>
                     <div class="image"></div>
                 </div>
                 <div class="container">
@@ -26,7 +23,6 @@
                             Начните заполнение, и уже через 15 минут он будет готов.*<br>
 
                         </p>
-                        <a href="/timesheet/index" class="button" target="_blank"><span>Начать заполнение (ОГРАНИЧЕННАЯ-ВЕРСИЯ)</span></a>
                         <!--                    open_popup_feedback-->
                         <!--                    --><!--user/register target="_blank" -->
 
@@ -65,10 +61,6 @@
                                 </p>
                             </div>
                         </div>
-                        <p class="decision">
-                            Электронный табель Timesheet<br>
-                            эффективно решает все эти и многие другие проблемы!
-                        </p>
                     </div>
                 </div>
             </section>
@@ -97,7 +89,6 @@
                                 <div class="time">Несколько секунд</div>
                             </div>
                         </div>
-                        <a href="#" class="button open_popup_feedback">Узнать подробнее</a>
                         <!--                    --><!--user/register target="_blank"-->
                     </div>
                 </div>
@@ -106,13 +97,8 @@
                 <div class="container">
                     <div class="items">
                         <div class="left">
-                            <h2 class="title">
-                                Почему Вам нужно<br>
-                                использовать сервис Timesheet<br>
-                                для заполнения табеля?
-                            </h2>
                             <ul>
-                                <li>Широкая функциональность сервиса делает заполнение табеля удобным и эффективным</li>
+                                <li class="pt-3">Широкая функциональность сервиса делает заполнение табеля удобным и эффективным</li>
                                 <li>Заполнение происходит онлайн, без установки громоздкого ПО на компьютере</li>
                                 <li>Экономия средств. Не нужно нанимать квалифицированного специалиста, если не получается разобраться с учетом. С сервисом Timesheet всё очень просто.</li>
                             </ul>
@@ -126,21 +112,6 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-            </section>
-            <section class="trial">
-                <div class="container">
-                    <h2 class="title">
-                        Ведите учет быстро и просто.<br>
-                        Начните прямо сейчас!
-                    </h2>
-                    <a href="#" class="button open_popup_feedback">ПОПРОБОВАТЬ БЕСПЛАТНО</a>
-                    <div class="info" style="color:#0092FF;font-size: 11px;">
-                        Электронный табель «Timesheet», 2022<br>
-                        Данный сайт не является публичной офертой<br>
-                        <a href="/site/privacy-policy" target="_blank" style="color:#33A8FF;">Политика обработки персональных данных</a> |
-                        <a href="/site/cookie-policy" target="_blank" style="color:#33A8FF;">Политика использования Cookie файлов</a> |
-                        <a href="/site/terms" target="_blank" style="color:#33A8FF;">Пользовательское соглашение</a>                </div>
                 </div>
             </section>
         </main>

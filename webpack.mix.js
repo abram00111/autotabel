@@ -11,9 +11,9 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+mix.js('resources/js/AdminLte.js', 'public/js')
     .vue()
-    .sass('resources/sass/app.scss', 'public/css')
-    .css('resources/css/welcome.css', 'public/css').options({
-    processCssUrls: false
-});
+    .sass('resources/sass/AdminLTE.scss', 'public/css')
+    .sass('resources/sass/welcome.scss', 'public/css').options({
+        processCssUrls: false
+    });
