@@ -1,5 +1,6 @@
 {
     "/js/AdminLte.js": "/js/AdminLte.js",
+    "/js/authUser.js": "/js/authUser.js",
     "/css/AdminLTE.css": "/css/AdminLTE.css",
     "/css/welcome.css": "/css/welcome.css"
 }

@@ -7,5 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Organization extends Model
 {
+    protected $fillable =[
+        'long_name',
+        'short_name',
+        'director_fio',
+        'address',
+        'user_id',
+    ];
+    public function division()
+    {
+        return $this->hasMany(Division::class);
+    }
     use HasFactory;
 }

@@ -15,13 +15,20 @@
             </div>
 
             <form class="login100-form validate-form" method="POST" action="{{ route('login') }}">
+                @if(isset($errorw))
+                    <div class="alert alert-danger alert-dismissible">
+                        <h5>Ошибка!</h5>
+                        Неверный логин или пароль
+                    </div>
+                @endif
+
                 @csrf
                 <span class="login100-form-title">
                     Авторизация
                 </span>
 
                 <div class="wrap-input100 validate-input" data-validate = "Это поле обязательное и должно быть email: ex@abc.xyz">
-                    <input class="input100 @error('email') is-invalid @enderror" type="text" name="email" placeholder="Email">
+                    <input class="input100 @error('email') is-invalid @enderror" value="{{ old('email') }}" type="text" name="email" placeholder="Email">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -64,7 +71,7 @@
                     <span class="txt1">
                         Забыли
                     </span>
-                    <a class="txt2" href="#">
+                    <a class="txt2" href="{{ route('password.request') }}">
                         Логин / Пароль?
                     </a>
                 </div>

@@ -19,7 +19,7 @@ class CreateOrganizationsTable extends Migration
             $table->string('short_name')->nullable();
             $table->string('director_fio')->nullable();
             $table->string('address')->nullable();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

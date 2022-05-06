@@ -38333,3 +38333,40 @@ blockquote.quote-gray-dark h6 {
 .elevation-5 {
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22) !important;
 }
+
+.head_organization {
+  background: #00bbd8;
+  padding: 3px;
+  border-radius: 2px;
+}
+
+.head_organization .buttons {
+  text-align: right;
+  padding: 8px 20px 8px 0px;
+}
+
+.head_organization .buttons span {
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.head_organization .buttons span i {
+  font-size: 20px;
+}
+
+.head_organization .buttons span i.fa-plus-square {
+  color: #005c00;
+}
+
+.head_organization .buttons span i.fa-edit {
+  color: #fff;
+}
+
+.head_organization .buttons span i.fa-trash {
+  color: #e85425;
+}
+
+.body_organization {
+  padding: 5px;
+  border: 2px solid #00bbd8;
+}
