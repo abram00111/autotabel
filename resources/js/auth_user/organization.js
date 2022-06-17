@@ -19,7 +19,7 @@ async function getAll(){
     // $('#example tbody').html('');
     organizations['data'].forEach((organization)=>{
         let divisions = get_division(organization['id']);
-        console.log(divisions)
+
         $('.all-organization').append('' +
             '<div class="col-12 mt-2 mb-2">\n' +
             '    <div class="head_organization">\n' +
@@ -28,17 +28,16 @@ async function getAll(){
             '                <h3>'+organization['short_name']+'</h3>\n' +
             '            </div>\n' +
             '            <div class="col-6 buttons">\n' +
-            '                <span class="add_divizion" data-id="'+organization['id']+'"><i class="fa fa-plus-square" aria-hidden="true"></i> Добавить подразделение</span>\n' +
+            '                <span class="add_division" data-bs-toggle="modal" data-bs-target="#ModalDivisions" data-id="'+organization['id']+'" data-name="'+organization['long_name']+'"><i class="fa fa-plus-square" aria-hidden="true"></i> Добавить подразделение</span>\n' +
             '                <span class="edit_organization" data-id="'+organization['id']+'"><i class="nav-icon fas fa-edit"></i></span>\n' +
             '                <span class="dell_organization" data-id="'+organization['id']+'"><i class="fa fa-trash" aria-hidden="true"></i></span>\n' +
             '            </div>\n' +
             '        </div>\n' +
             '    </div>\n' +
             '    <div class="body_organization">\n' +
-                    divisions+
             '    </div>\n' +
             '</div>')
-        return 'qqq';
+        $('.body_organization:last').html(divisions)
     })
     // DataTable();
     // $('.load-table').remove();
@@ -46,41 +45,31 @@ async function getAll(){
 getAll();
 
 function get_division(id){
+    let division_html ='';
 
-    return $.ajax({
-        url: '/api/division',
-        type: "GET",
-        headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {org_id: id},
+     $.ajax({
+         async: false,
+         url: '/api/division',
+         type: "GET",
+         headers: {
+             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+         },
+         data: {org_id: id},
 
-        success: function (data) {
-            let division_html ='';
-            data['data'].forEach((division)=>{
-                division_html += '' +
-                    '<div class="row">\' +\n' +
-                    '   <div class="col-6">'+division['name']+'</div>\' +\n' +
-                    '   <div class="col-6">\' +\n' +
-                    '       <div class="row">\' +\n' +
-                    '           <div class="col-5">Создать табель</div>\' +\n' +
-                    '           <div class="col-5">Редактировать штат</div>\' +\n' +
-                    '           <div class="col-2">\' +\n' +
-                    '               <div class="row">\' +\n' +
-                    '                   <div class="col-6">Ред</div>\' +\n' +
-                    '                   <div class="col-6">Удалить</div>\' +\n' +
-                    '               </div>\' +\n' +
-                    '           </div>\' +\n' +
-                    '       </div>\' +\n' +
-                    '   </div>\' +\n' +
-                    '</div>\' +';
-            })
+         success: function (data) {
+             data['data'].forEach((division)=>{
+                 let id = division['id'];
+                 division_html += '<div class="row"><div class="col-8">'+division['name']+'</div><div class="col-4"><div class="row"><div class="col-4"><a href="/tabel/'+id+'">Создать табель</a></div><div class="col-4"><a href="/shtat/'+id+'">Редактировать штат</a></div><div class="col-2"><div class="row"><div class="col-6 edit-division" data-id="'+id+'"><i class="nav-icon fas fa-edit"></i></div><div class="col-6 del-division" data-id="'+id+'"><i class="fa fa-trash" aria-hidden="true"></i></div></div></div></div></div></div>';
+             })
 
-        },
-        error: function (msg) {
+         },
+         error: function (msg) {
 
-        }
+         }
+
     })
+
+    return division_html;
 
 }
 
@@ -152,7 +141,7 @@ $(document).on('click', '#store_organization',async function add_organization(){
                 '                <h3>'+data['data']['short_name']+'</h3>\n' +
                 '            </div>\n' +
                 '            <div class="col-6 buttons">\n' +
-                '                <span class="add_divizion" data-id="'+id_org+'"><i class="fa fa-plus-square" aria-hidden="true"></i> Добавить подразделение</span>\n' +
+                '                <span class="add_division" data-bs-toggle="modal" data-bs-target="#ModalDivisions" data-id="'+id_org+'" data-name="'+data['data']['long_name']+'"><i class="fa fa-plus-square" aria-hidden="true"></i> Добавить подразделение</span>\n' +
                 '                <span class="edit_organization" data-id="'+id_org+'"><i class="nav-icon fas fa-edit"></i></span>\n' +
                 '                <span class="dell_organization" data-id="'+id_org+'"><i class="fa fa-trash" aria-hidden="true"></i></span>\n' +
                 '            </div>\n' +
@@ -238,7 +227,7 @@ $(document).on('click', '.dell_organization',function (){
         cancelButtonText: 'Отмена'
     }).then((result) => {
         if (result.isConfirmed) {
-            $(this).parent().parent().parent().remove();
+            let obj = $(this).parent().parent().parent().parent();
 
             $.ajax({
                 url: '/api/organization/'+id,
@@ -249,7 +238,7 @@ $(document).on('click', '.dell_organization',function (){
                 },
 
                 success: function (data) {
-                    $('.dell_organization[data-id="'+id+'"]')
+                    obj.remove()
                     Swal.fire(
                         'Удалено!',
                         'Организация успешно удалена',
@@ -265,3 +254,163 @@ $(document).on('click', '.dell_organization',function (){
         }
     })
 })
+
+
+//_________________Подразделдения____________________
+
+//Открытие модального окна при добавлении подразделения
+$(document).on('click', '.add_division',function (){
+    $('input[name="id_parent_division"]').val($(this).attr('data-id'));
+    $('input[name="name_parent"]').val($(this).attr('data-name'));
+    $('input[name="name"]').val('');
+    $('.store_or_edit_division').attr('id', 'store_division')
+})
+
+//получение массива данных об одном подразделении
+function get_one_division(id){
+    $.ajax({
+        url: '/api/division/'+id,
+        type: "GET",
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+
+        success: function (data) {
+            $('input[name="name"]').val(data['data']['name'])
+        },
+        error: function (msg) {
+
+        }
+    })
+}
+
+//получение редактируемого подразделения
+$(document).on('click', '.edit-division',function (){
+    $('#show_modal_add_division').trigger('click');
+    $('.store_or_edit_division').attr('id', 'edit-division');
+    let name = $(this).parent().parent().parent().parent().parent().parent().parent().children('.head_organization').children('.row').children('.buttons').children('.add_division').attr('data-name')
+    let id = $(this).attr('data-id');
+    $('input[name="id_parent_division"]').val(id);
+    $('input[name="name_parent"]').val(name);
+    get_one_division(id);
+})
+
+//Добавление подразделения
+$(document).on('click', '#store_division',async function add_division(){
+    $('.is-invalid').removeClass('is-invalid');
+    $('.invalid-feedback').remove();
+
+    $.ajax({
+        url: '/api/division',
+        type: "POST",
+
+        data: {
+            name: $('input[name="name"]').val(),
+            timekeeper_id: $('input[name="user_id_hid"]').val(),
+            user_id: $('input[name="user_id_hid"]').val(),
+            organization_id: $('input[name="id_parent_division"]').val(),
+            _token: $('meta[name="csrf-token"]').attr('content'),
+        },
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+
+        success: function (data) {
+            let id_org = data['data']['id'];
+            mes_right('success', 'Подразделение успешно добавлено')
+            getAll()
+            $('#close_add_division').trigger('click')
+        },
+        error: function (msg) {
+            console.log(msg)
+            mes_right('error', 'Произошла ошибка при добавлении подразделения')
+            $.each(msg['responseJSON']['errors'], function(key, value){
+                $('input[name="'+key+'"]').addClass('is-invalid');
+                $('input[name="'+key+'"]').after('' +
+                    '<span class="invalid-feedback d-block" role="alert">\n' +
+                    '   <strong>'+value+'</strong>\n' +
+                    '</span>'
+                );
+            });
+        }
+    })
+})
+
+//сохранение редактируемого подразделения
+$(document).on('click', '#edit-division',function (){
+    let id = $('input[name="id_parent_division"]').val()
+
+    $.ajax({
+        url: '/api/division/'+id,
+        type: "PUT",
+
+        data: {
+            name: $('input[name="name"]').val(),
+        },
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+
+        success: function (data) {
+            getAll()
+            mes_right('success', 'Подразделение успешно обновлено')
+            $('#close_add_division').trigger('click')
+        },
+        error: function (msg) {
+            mes_right('error', 'Произошла ошибка при редактировании подразделения')
+            $.each(msg['responseJSON']['errors'], function(key, value){
+                $('input[name="'+key+'"]').addClass('is-invalid');
+                $('input[name="'+key+'"]').after('' +
+                    '<span class="invalid-feedback d-block" role="alert">\n' +
+                    '   <strong>'+value+'</strong>\n' +
+                    '</span>'
+                );
+            });
+        }
+    })
+})
+
+//Удаление подразделения
+$(document).on('click', '.del-division',function (){
+    let id = $(this).attr('data-id');
+    Swal.fire({
+        title: 'Вы действительно хотите удалить подразделение?',
+        text: "Подразделение и работники входящие в него будут удалены",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Да, удалить!',
+        cancelButtonText: 'Отмена'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let obj = $(this).parent().parent().parent().parent().parent();
+
+            $.ajax({
+                url: '/api/division/'+id,
+                type: "DELETE",
+
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+
+                success: function (data) {
+                    obj.remove();
+                    Swal.fire(
+                        'Удалено!',
+                        'Подразделение успешно удалено',
+                        'success'
+                    )
+                },
+                error: function (msg) {
+                    mes_right('error', 'Произошла ошибка при удалении организации')
+                }
+            });
+
+
+        }
+    })
+})
+
+
+

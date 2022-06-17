@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\ShtatController;
+use App\Http\Controllers\TabelController;
+use App\Http\Controllers\TableHistoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,6 +44,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/autotabel', function (){
        return view('auth_user.index');
     })->name('autotabel');
+
+    Route::get('/shtat', [ShtatController::class, 'allShtats'])->name('shtat');
+    Route::get('/shtat/{id}', [ShtatController::class, 'index']);
+
+    Route::get('/tabel', [TabelController::class, 'allTabel'])->name('tabel');
+    Route::get('/tabel/{id}', [TabelController::class, 'index']);
+
+    Route::get('/tabelHistory', [TableHistoryController::class, 'index'])->name('tabelHistory');
+
+    Route::POST('/create_tabel', [TabelController::class, 'create_tabel'])->name('create_tabel');
 });
 
 

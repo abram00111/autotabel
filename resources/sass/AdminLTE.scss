@@ -38,8 +38,27 @@
 .head_organization .buttons span i.fa-trash{
     color: #e85425;
 }
+.edit-division{
+    font-size: 20px;
+    cursor: pointer;
+}
+.del-division{
+    color:#e85425;
+    font-size: 20px;
+    cursor: pointer;
+}
 .body_organization{
     padding: 5px;
     border: 2px solid #00bbd8;
 }
-
+.chas_v_nedely{
+    line-height: 1;
+    padding: 0 5px;
+    height: auto;
+}
+.name-day{
+    margin: 2px 0;
+}
+.div_chas_v_nedely{
+    display: none;
+}

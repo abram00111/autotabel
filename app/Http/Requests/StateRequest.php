@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DivisionRequest extends FormRequest
+class StateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class DivisionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
+            'surname' => 'request',
+            'lastname' => 'request',
         ];
     }
 }

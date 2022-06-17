@@ -17,14 +17,15 @@ class CreateStatesTable extends Migration
             $table->id();
             $table->foreignId('organization_id')->constrained();
             $table->foreignId('division_id')->constrained();
-            $table->string('position');
-            $table->string('stake');
-            $table->integer('timetable');
-            $table->integer('hours_per_week');
-            $table->string('surname');
-            $table->string('lastname');
+            $table->string('position')->nullable();
+            $table->string('stake')->nullable();
+            $table->integer('timetable')->nullable();
+            $table->integer('hours_per_week')->nullable();
+            $table->string('rezgim')->nullable();
+            $table->string('surname')->nullable();
+            $table->string('lastname')->nullable();
             $table->string('patronymic')->nullable();
-            $table->integer('payment');
+            $table->integer('payment')->nullable();
             $table->decimal('mo', 2,1)->nullable();
             $table->decimal('to', 2,1)->nullable();
             $table->decimal('we', 2,1)->nullable();
@@ -33,7 +34,7 @@ class CreateStatesTable extends Migration
             $table->decimal('sa', 2,1)->nullable();
             $table->decimal('su', 2,1)->nullable();
             $table->decimal('dinner', 2,1)->nullable();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DivisionRequest;
 use App\Http\Resources\DivisionResource;
 use App\Models\Division;
 use Illuminate\Http\Request;
@@ -23,34 +24,43 @@ class DivisionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return DivisionResource
      */
-    public function store(Request $request)
+    public function store(DivisionRequest $request)
     {
-        //
+        $created = Division::create([
+            'organization_id'=>$request['organization_id'],
+            'name'=>$request['name'],
+            'timekeeper_id'=>$request['timekeeper_id'],
+            'user_id'=>$request['user_id'],
+        ]);
+        return new DivisionResource($created);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return DivisionResource
      */
     public function show($id)
     {
-        //
+        return new DivisionResource(Division::findOrFail($id));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param DivisionRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(DivisionRequest $request, $id)
     {
-        //
+        $division = Division::find($id);
+        $division->name = $request['name'];
+        $division->save();
+        return response()->json(['mes' => 'Подразделение изменено'], 201);
     }
 
     /**
@@ -61,6 +71,12 @@ class DivisionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $division = Division::find($id);
+        if($division == ''){
+            return response()->json(['mes' => 'Такое подразделение не найдено'], 404);
+        }else{
+            $division->delete();
+            return response()->json(['mes' => 'Подразделение удалено'], 201);
+        }
     }
 }

@@ -5,29 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class State extends Model
+class TableHistory extends Model
 {
     use HasFactory;
-    protected $fillable =[
+    protected $fillable = [
         'organization_id',
         'division_id',
-        'position',
-        'stake',
-        'timetable',
-        'hours_per_week',
-        'rezgim',
-        'surname',
-        'lastname',
-        'patronymic',
-        'payment',
-        'mo',
-        'to',
-        'we',
-        'th',
-        'fr',
-        'sa',
-        'su',
-        'dinner',
+        'tabel',
         'user_id',
     ];
     public function organization()
@@ -38,4 +22,9 @@ class State extends Model
     {
         return $this->morphTo(Division::class);
     }
+    public function state()
+    {
+        return $this->morphTo(State::class);
+    }
+
 }

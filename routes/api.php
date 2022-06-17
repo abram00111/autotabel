@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\OrganizationController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Api\DivisionController;
+use App\Http\Controllers\Api\StateController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,5 +27,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::apiResources([
     'organization'=>OrganizationController::class,
-    'division'=>DivisionController::class
+    'division'=>DivisionController::class,
+    'state'=>StateController::class,
 ]);

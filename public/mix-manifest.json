@@ -1,6 +1,8 @@
 {
     "/js/AdminLte.js": "/js/AdminLte.js",
     "/js/authUser.js": "/js/authUser.js",
+    "/js/shtat.js": "/js/shtat.js",
+    "/js/tabel.js": "/js/tabel.js",
     "/css/AdminLTE.css": "/css/AdminLTE.css",
     "/css/welcome.css": "/css/welcome.css"
 }

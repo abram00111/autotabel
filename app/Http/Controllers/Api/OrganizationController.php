@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrganizationRequest;
 use App\Http\Resources\OrganizationResource;
+use App\Models\Division;
 use App\Models\Organization;
+use App\Models\State;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -84,7 +86,9 @@ class OrganizationController extends Controller
         if($organization == ''){
             return response()->json(['mes' => 'Такой организации не найдено'], 404);
         }else{
-            $organization->delete();
+            $organization->destroy($id);
+            //
+
             return response()->json(['mes' => 'Организация удалена'], 201);
         }
     }

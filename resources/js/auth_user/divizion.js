@@ -103,7 +103,7 @@ $(document).on('click', '#store_division',async function add_division(){
                 '                <h3>'+data['data']['short_name']+'</h3>\n' +
                 '            </div>\n' +
                 '            <div class="col-6 buttons">\n' +
-                '                <span class="add_divizion" data-id="'+id_org+'"><i class="fa fa-plus-square" aria-hidden="true"></i> Добавить подразделение</span>\n' +
+                '                <span class="add_division" data-id="'+id_org+'"><i class="fa fa-plus-square" aria-hidden="true"></i> Добавить подразделение</span>\n' +
                 '                <span class="edit_organization" data-id="'+id_org+'"><i class="nav-icon fas fa-edit"></i></span>\n' +
                 '                <span class="dell_organization" data-id="'+id_org+'"><i class="fa fa-trash" aria-hidden="true"></i></span>\n' +
                 '            </div>\n' +

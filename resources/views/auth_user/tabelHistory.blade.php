@@ -1,7 +1,7 @@
 @extends('layouts.AdminLte')
 
 @section('title')
-    Автотабель
+    Готовый табель
 @endsection
 
 @section('content')
